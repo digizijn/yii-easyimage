@@ -106,7 +106,7 @@ class EasyImage extends CApplicationComponent
                 Yii::app()->assetManager->publish(
                     Yii::getPathOfAlias('easyimage.assets') . '/retina.min.js'
                 ),
-                CClientScript::POS_HEAD
+                CClientScript::POS_END
             );
         }
     }
