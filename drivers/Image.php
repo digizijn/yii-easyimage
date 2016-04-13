@@ -338,7 +338,9 @@ class Image
 			} while ($degrees < -180);
 		}
 
-		$this->_do_rotate($degrees);
+		if($degrees != 0) {
+			$this->_do_rotate($degrees);
+		}
 
 		return $this;
 	}

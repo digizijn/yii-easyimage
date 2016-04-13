@@ -10,10 +10,6 @@
  */
 class Image_GD extends Image
 {
-
-	// Is GD bundled or separate?
-	protected static $_bundled;
-
 	/**
 	 * Checks if GD is enabled and bundled. Bundled GD is required for some
 	 * methods to work. Exceptions will be thrown from those methods when GD is
@@ -25,17 +21,6 @@ class Image_GD extends Image
 	{
 		if (!function_exists('gd_info')) {
 			throw new CException('GD is either not installed or not enabled, check your configuration');
-		}
-
-		if (defined('GD_BUNDLED')) {
-			// Get the version via a constant, available in PHP 5.
-			Image_GD::$_bundled = GD_BUNDLED;
-		} else {
-			// Get the version information
-			$info = gd_info();
-
-			// Extract the bundled status
-			Image_GD::$_bundled = (bool)preg_match('/\bbundled\b/i', $info['GD Version']);
 		}
 
 		if (defined('GD_VERSION')) {
@@ -227,7 +212,7 @@ class Image_GD extends Image
 	 */
 	protected function _do_rotate($degrees)
 	{
-		if (!Image_GD::$_bundled) {
+		if (!function_exists('imagerotate')) {
 			throw new CException('This method requires imagerotate, which is only available in the bundled version of GD');
 		}
 
@@ -301,7 +286,7 @@ class Image_GD extends Image
 	 */
 	protected function _do_sharpen($amount)
 	{
-		if (!Image_GD::$_bundled) {
+		if (!function_exists('imageconvolution')) {
 			throw new CException('This method requires imageconvolution, which is only available in the bundled version of GD');
 		}
 
@@ -337,7 +322,7 @@ class Image_GD extends Image
 	 */
 	protected function _do_reflection($height, $opacity, $fade_in)
 	{
-		if (!Image_GD::$_bundled) {
+		if (!function_exists('imagefilter')) {
 			throw new CException('This method requires imagefilter, which is only available in the bundled version of GD');
 		}
 
@@ -409,7 +394,7 @@ class Image_GD extends Image
 	 */
 	protected function _do_watermark($watermark, $offset_x, $offset_y, $opacity)
 	{
-		if (!Image_GD::$_bundled) {
+		if (!function_exists('imagelayereffect')) {
 			throw new CException('This method requires imagelayereffect, which is only available in the bundled version of GD');
 		}
 
