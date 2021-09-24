@@ -270,11 +270,11 @@ class EasyImage extends CApplicationComponent
     {
         // Paths
         $hash = md5($file . serialize($params) . (string)$hash);
-        $cachePath = Yii::getpathOfAlias('webroot') . $this->cachePath . $hash{0};
+        $cachePath = Yii::getpathOfAlias('webroot') . $this->cachePath . $hash[0];
         $cacheFileExt = isset($params['type']) ? $params['type'] : pathinfo($file, PATHINFO_EXTENSION);
         $cacheFileName = $hash . '.' . $cacheFileExt;
         $cacheFile = $cachePath . DIRECTORY_SEPARATOR . $cacheFileName;
-        $webCacheFile = Yii::app()->baseUrl . $this->cachePath . $hash{0} . '/' . $cacheFileName;
+        $webCacheFile = Yii::app()->baseUrl . $this->cachePath . $hash[0] . '/' . $cacheFileName;
 
         // Return URL to the cache image
         if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $this->cacheTime)) {
